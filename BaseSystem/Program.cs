@@ -105,7 +105,8 @@ builder.Services.AddCors(options =>
         policy
             .WithOrigins(
                 "https://gorgeous-brigadeiros-effe5f.netlify.app",
-                "http://localhost:3000"
+                "http://localhost:3000",
+                "http://localhost:5000"
             )
             .AllowAnyHeader()
             .AllowAnyMethod()

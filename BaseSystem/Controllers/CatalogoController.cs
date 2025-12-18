@@ -39,7 +39,7 @@ namespace BaseSystem.Controllers
                 return Forbid(); // Acceso denegado 403
             }
 
-            var response = await _GeneralServices.ObtenerData("uspGetCatalogosCsv", data);
+            var response = await _GeneralServices.ObtenerData("uspGetCatalogosCsv", emailFromToken +"|"+ data);
             if (response == null)
                 return NotFound(); // 404
 
@@ -69,7 +69,7 @@ namespace BaseSystem.Controllers
                 return Forbid(); // Acceso denegado 403
             }
 
-            var response = await _GeneralServices.ObtenerData("uspCreateCatalogoCsv", data);
+            var response = await _GeneralServices.ObtenerData("uspCreateCatalogoCsv", emailFromToken + "|" + data);
             if (response == null)
                 return NotFound(); // 404
 
