@@ -102,13 +102,17 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowSpecificOrigins", policy =>
     {
-        policy.WithOrigins("https://a159fc4c62b4.ngrok-free.app", "http://localhost:3000", "http://localhost:5173")
-              .AllowAnyHeader()
-              .AllowAnyMethod()
-              .WithExposedHeaders("x-auth-token")
-              .SetPreflightMaxAge(TimeSpan.FromMinutes(10)); // Cache preflight por 10 minutos
+        policy
+            .WithOrigins(
+                "https://gorgeous-brigadeiros-effe5f.netlify.app",
+                "http://localhost:3000"
+            )
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowCredentials();
     });
 });
+
 
 builder.Services.AddHttpContextAccessor();
 
@@ -140,18 +144,15 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseRouting();
 
-app.UseHttpsRedirection();
-
-// IMPORTANTE: CORS debe ir ANTES de Authentication y Authorization
 app.UseCors("AllowSpecificOrigins");
 
-// Middleware de Autenticación y Autorización
 app.UseAuthentication();
 app.UseAuthorization();
 
-// Mapeo de controladores
 app.MapControllers();
+
 
 // Ejecución de la Aplicación
 app.Run();
